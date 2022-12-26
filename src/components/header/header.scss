@@ -1,0 +1,54 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem ;
+    background-color: #5A6F09;
+    &__logo {
+        width: 5rem;
+        height: 5rem;
+    }
+    &__link {
+        display: flex;
+        justify-content: space-between;
+        width: 27rem;
+        flex-basis: 50%;
+        &-home {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 13rem;
+            &-icon {
+                width: 2rem;
+            }
+            &-title {
+                color: white;
+                font-size: x-large;
+            }  
+        }
+        &-list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 12rem;
+            &-icon {
+                width: 2rem;
+            }
+            &-title {
+                color: white;
+                font-size: x-large;
+            }  
+        }
+        &-nav {
+            display: flex;
+            flex-basis: 50%;
+            justify-content: space-between;
+            border-top: solid 5px white;
+            text-decoration: none;
+            padding: 1.25rem 0;
+            &:hover {
+                border-top: solid 5px  #93AD19;
+            }
+        }
+    }
+}

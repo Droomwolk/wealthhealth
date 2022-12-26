@@ -1,0 +1,31 @@
+.datePickerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 45%;
+    // justify-content: flex-end;
+    margin-bottom: 1rem;
+    // background-color: gold;
+    > label {
+        display: flex;
+        flex-basis: 100%;
+        justify-content: flex-start;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color:  black;
+    }
+    input {
+        display: flex;
+        flex-basis: 100%;
+        height: 30px;
+        border: none; 
+        border-radius: 5px;
+        text-align: center;
+        border: solid 1px lightgray;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .datePickerContainer {
+        flex-basis: 100%;
+    }
+}

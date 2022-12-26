@@ -1,0 +1,36 @@
+.createEmployee {
+    display: flex;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    &__Date {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    &__adress {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        flex-basis: 100%;
+        border: 0.063rem solid  lightgray;
+        column-gap: 2.5rem;
+        margin-top: 2.5rem;
+        border-radius: 0.5rem;
+        padding: 1.25rem;
+        &-title {
+            position: absolute;
+            top: -2.188rem;
+            background-color: white;
+            color: black;
+            font-weight: 600;
+        }
+    }
+}
+
+.error-message {
+    color: red;
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+}
