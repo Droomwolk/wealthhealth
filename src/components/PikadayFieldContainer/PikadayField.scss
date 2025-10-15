@@ -1,0 +1,50 @@
+.PikadayFieldContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+
+  > label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+    color: #111827;
+  }
+
+  input {
+    width: 100%;
+    height: 44px;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    &.error {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+    }
+  }
+
+  .error-message {
+    color: #dc2626;
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 800px) {
+  .PikadayFieldContainer {
+    width: 100%;
+  }
+}

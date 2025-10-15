@@ -1,12 +1,12 @@
-@import '../App/App.scss';
+@use "../App/App.scss";
 
-@import '../components/header/header.scss';
-@import '../components/datePickerContainer/datePickerContainer.scss';
-@import '../components/table/table.scss';
-@import '../components/form/form.scss';
-@import '../components/selectInput/selectInput.scss';
-@import '../components/input/input.scss';
-@import '../components/createEmployee/createEmployee.scss';
+@use "../components/header/header.scss";
+@use "../components/PikadayFieldContainer/PikadayField.scss";
+@use "../components/table/table.scss";
+@use "../components/form/form.scss";
+@use "../components/selectInput/selectInput.scss";
+@use "../components/input/input.scss";
+@use "../components/createEmployee/createEmployee.scss";
 
-@import '../pages/home/home.scss';
-@import '../pages/employeeList/employeeList.scss';
+@use "../pages/home/home.scss";
+@use "../pages/employeeList/employeeList.scss";

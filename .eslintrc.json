@@ -48,11 +48,14 @@
   "settings": {
     "import/resolver": {
       "alias": {
-        "extensions": [".js"],
         "map": [
           ["src", "./src"],
           ["app", "./src"]
-        ]
+        ],
+        "extensions": [".js", ".jsx", ".json", ".scss"]
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".json", ".scss"]
       }
     }
   }

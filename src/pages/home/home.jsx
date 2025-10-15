@@ -1,13 +1,12 @@
-/* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import CreateEmployee from '../../components/createEmployee/createEmployee';
-import '../../scss/main.scss';
+import CreateEmployee from "../../components/createEmployee/createEmployee";
+import "../../scss/main.scss";
 
 function Home() {
   return (
     <main className="home">
-      <h1 className='home__title'>Create Employee</h1>
-      <div className='home__form'>
+      <h1 className="home__title">Create Employee</h1>
+      <div className="home__form">
         <CreateEmployee />
       </div>
     </main>
