@@ -1,9 +1,9 @@
-// src/components/table/table.jsx
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import { useSelector } from "react-redux";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import { columns as baseColumns } from "../../data/data";
 import "../../scss/main.scss";
 
@@ -16,7 +16,7 @@ function normalizeRow(r) {
       }`,
     firstName: r.firstName ?? r.FirstName ?? "",
     lastName: r.lastName ?? r.LastName ?? "",
-    dateOfBirth: r.dateOfBirth ?? r.DateOfBirth ?? "", // idéalement: Date JS
+    dateOfBirth: r.dateOfBirth ?? r.DateOfBirth ?? "",
     startDate: r.startDate ?? r.StartDate ?? "",
     street: r.street ?? r.Street ?? "",
     city: r.city ?? r.City ?? "",
@@ -26,11 +26,10 @@ function normalizeRow(r) {
   };
 }
 
-// formatteur robuste: accepte Date, ISO string, timestamp, "DD/MM/YYYY"
+// formatteur robuste : accepte Date, ISO string, timestamp, "DD/MM/YYYY"
 function formatDateFR(value) {
   if (!value) return "";
   let d = value instanceof Date ? value : new Date(value);
-  // Si la valeur est au format "DD/MM/YYYY" (string), on la retourne telle quelle
   if (typeof value === "string" && /^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
     return value;
   }
@@ -48,9 +47,7 @@ export default function Table({ pagination }) {
         col.field === "dateOfBirth" || col.field === "startDate"
           ? {
               ...col,
-              // affichage en JJ/MM/AAAA dans la cellule
               valueFormatter: ({ value }) => formatDateFR(value),
-              // tri correct si vos valeurs sont des Date ; sinon, retirez cette ligne
               sortComparator: (v1, v2) =>
                 new Date(v1).getTime() - new Date(v2).getTime(),
             }
@@ -59,15 +56,83 @@ export default function Table({ pagination }) {
     []
   );
 
+  // Détection de la taille d’écran
+  const isXs = useMediaQuery("(max-width:480px)");
+  const isSm = useMediaQuery("(max-width:768px)");
+
+  // Colonnes visibles selon la taille d’écran
+  const [columnVisibilityModel, setColumnVisibilityModel] = React.useState({});
+
+  React.useEffect(() => {
+    if (isSm) {
+      // Mobile / tablette : vue compacte
+      setColumnVisibilityModel({
+        firstName: true,
+        lastName: true,
+        department: true,
+        startDate: true,
+        dateOfBirth: !isXs,
+        street: false,
+        city: false,
+        state: false,
+        zipCode: false,
+      });
+    } else {
+      // Desktop : tout visible
+      setColumnVisibilityModel({
+        firstName: true,
+        lastName: true,
+        department: true,
+        startDate: true,
+        dateOfBirth: true,
+        street: true,
+        city: true,
+        state: true,
+        zipCode: true,
+      });
+    }
+  }, [isSm, isXs]);
+
   return (
-    <Box sx={{ height: 525, width: "80%" }}>
+    <Box
+      sx={{
+        width: { xs: "100%", sm: "95%", md: "80%" },
+        height: { xs: "auto", md: 525 },
+        minWidth: 0,
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
         getRowId={(row) => row.id}
-        pageSize={Number(pagination) || 10}
+        initialState={{
+          pagination: { pageSize: Number(pagination) || 10 },
+        }}
         rowsPerPageOptions={[5, 10, 25, 50]}
+        columnVisibilityModel={columnVisibilityModel}
+        onColumnVisibilityModelChange={(m) => setColumnVisibilityModel(m)}
+        autoHeight={isSm}
+        density={isSm ? "compact" : "standard"}
+        hideFooterSelectedRowCount
         disableRowSelectionOnClick
+        sx={{
+          "& .MuiDataGrid-columnHeaders": {
+            fontSize: { xs: "0.9rem", sm: "1rem" },
+          },
+          "& .MuiDataGrid-cell": {
+            fontSize: { xs: "0.9rem", sm: "1rem" },
+            py: { xs: 0.5, sm: 1 },
+          },
+          // Forcer l’affichage du sélecteur “Rows per page” sur mobile
+          "& .MuiTablePagination-selectLabel, & .MuiTablePagination-input": {
+            display: "inline-flex !important",
+          },
+          "& .MuiTablePagination-toolbar": {
+            flexWrap: "wrap",
+            rowGap: 0.5,
+            justifyContent: "center",
+          },
+        }}
       />
     </Box>
   );

@@ -1,54 +1,150 @@
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #5a6f09;
+  &__logo {
+    width: 5rem;
+    height: 5rem;
+  }
+  &__link {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1rem ;
-    background-color: #5A6F09;
+    width: 27rem;
+    flex-basis: 50%;
+    &-home {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 13rem;
+      &-icon {
+        width: 2rem;
+      }
+      &-title {
+        color: white;
+        font-size: x-large;
+      }
+    }
+    &-list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 12rem;
+      &-icon {
+        width: 2rem;
+      }
+      &-title {
+        color: white;
+        font-size: x-large;
+      }
+    }
+    &-nav {
+      display: flex;
+      flex-basis: 50%;
+      justify-content: space-between;
+      border-top: solid 5px white;
+      text-decoration: none;
+      padding: 1.25rem 0;
+      &:hover {
+        border-top: solid 5px #93ad19;
+      }
+    }
+  }
+}
+
+/* ≥ 1024px (petit desktop/tablette paysage) */
+@media (max-width: 1024px) {
+  .header {
+    padding: 0.75rem 1rem;
+
     &__logo {
-        width: 5rem;
-        height: 5rem;
+      width: 4rem;
+      height: 4rem;
     }
+
     &__link {
-        display: flex;
-        justify-content: space-between;
-        width: 27rem;
-        flex-basis: 50%;
-        &-home {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 13rem;
-            &-icon {
-                width: 2rem;
-            }
-            &-title {
-                color: white;
-                font-size: x-large;
-            }  
-        }
-        &-list {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 12rem;
-            &-icon {
-                width: 2rem;
-            }
-            &-title {
-                color: white;
-                font-size: x-large;
-            }  
-        }
-        &-nav {
-            display: flex;
-            flex-basis: 50%;
-            justify-content: space-between;
-            border-top: solid 5px white;
-            text-decoration: none;
-            padding: 1.25rem 0;
-            &:hover {
-                border-top: solid 5px  #93AD19;
-            }
-        }
+      width: auto;
+      gap: 1rem;
+
+      &-home-title,
+      &-list-title {
+        font-size: 1.125rem; /* un peu moins que x-large */
+      }
+
+      &-nav {
+        padding: 1rem 0;
+      }
     }
+  }
+}
+
+/* ≤ 768px (tablette portrait / mobile large) */
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+    padding: 0.75rem 1rem;
+
+    &__logo {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+
+    /* La nav passe en colonne pleine largeur */
+    &__link {
+      width: 100%;
+      flex-basis: 100%;
+      justify-content: flex-start;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &-nav {
+        display: block;
+        width: 100%;
+        border-top: 4px solid #ffffff;
+        padding: 0.75rem 0;
+      }
+
+      &-home,
+      &-list {
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &-home-title,
+      &-list-title {
+        font-size: 1.0625rem; /* ~17px, bon en mobile */
+        color: #ffffff; /* lisible sur fond vert du header */
+      }
+    }
+  }
+}
+
+/* ≤ 480px (petits mobiles) */
+@media (max-width: 480px) {
+  .header {
+    padding: 0.5rem 0.75rem;
+
+    &__logo {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    &__link {
+      gap: 0.25rem;
+
+      &-nav {
+        border-top-width: 3px;
+        padding: 0.625rem 0;
+        min-height: 44px; /* cible tactile conforme */
+      }
+
+      &-home-title,
+      &-list-title {
+        font-size: 1rem; /* ~16px */
+      }
+    }
+  }
 }
