@@ -11,16 +11,15 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@droomwolk/react-a11y-modal": "^1.0.8",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^5.18.0",
     "@mui/x-data-grid": "^5.17.26",
     "@reduxjs/toolkit": "^1.9.7",
-    "at-npm-modal-package": "^0.1.6",
     "pikaday": "^1.8.2",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
-    "react-datepicker": "^4.25.0",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.62.0",
     "react-redux": "^8.1.3",

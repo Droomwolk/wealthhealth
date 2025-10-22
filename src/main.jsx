@@ -5,6 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App/App";
 import "./index.css";
+import "@droomwolk/react-a11y-modal/dist/modal.css";
 import { BrowserRouter } from "react-router-dom";
 import store from "./redux/store";
 import { Provider } from "react-redux";

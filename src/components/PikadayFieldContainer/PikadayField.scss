@@ -1,3 +1,8 @@
+/* Neutraliser un éventuel centrage hérité sur les lignes du formulaire */
+.createEmployee .row {
+  text-align: left !important;
+}
+
 .PikadayFieldContainer {
   display: flex;
   flex-direction: column;
@@ -9,6 +14,7 @@
     font-size: 0.95rem;
     margin-bottom: 0.4rem;
     color: #111827;
+    text-align: left; /* garder le label à gauche */
   }
 
   input {
@@ -22,6 +28,9 @@
     line-height: 1.2;
     box-sizing: border-box;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    /* On blinde l'alignement à gauche */
+    text-align: left !important;
 
     &:focus {
       outline: none;
@@ -40,6 +49,7 @@
     font-size: 0.8rem;
     margin-top: 0.35rem;
     line-height: 1.2;
+    text-align: left; /* messages à gauche aussi */
   }
 }
 

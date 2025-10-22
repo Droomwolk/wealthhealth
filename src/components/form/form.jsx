@@ -14,7 +14,6 @@ function Form({
   const methods = useForm({ defaultValues, mode, reValidateMode });
 
   const submit = methods.handleSubmit((data, e) => {
-    // e = native submit event si tu en as besoin
     if (onSubmit) onSubmit(data, e);
   });
 
@@ -24,14 +23,10 @@ function Form({
         onSubmit={submit}
         className={`form${className ? ` ${className}` : ""}`}
       >
-        {/* Si children est une fonction, on lui passe les methods (pattern render-props) */}
         {typeof children === "function" ? children(methods) : children}
-        <input
-          className="form__submit"
-          type="submit"
-          value="Save"
-          style={style}
-        />
+        <button className="form__submit" type="submit" style={style}>
+          Save
+        </button>
       </form>
     </FormProvider>
   );
@@ -39,9 +34,7 @@ function Form({
 
 Form.propTypes = {
   className: PropTypes.string,
-  /** Peut être des noeuds React OU une fonction (methods) => ReactNode */
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
-  /** onSubmit reçoit (data, event) */
   onSubmit: PropTypes.func.isRequired,
   style: PropTypes.object,
   defaultValues: PropTypes.object,

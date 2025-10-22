@@ -8,7 +8,8 @@ function EmployeeList() {
   return (
     <main className="employeeList">
       <h1 className="employeeList__title">Employees List</h1>
-      <div className="employeeListContent">
+      {/* wrapper responsive + scroll horizontal de secours */}
+      <div className="employeeListContent employeeTable-wrapper">
         <Table pagination={defaultPageSize} />
       </div>
     </main>

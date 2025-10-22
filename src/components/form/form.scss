@@ -1,29 +1,53 @@
 .form {
   flex-wrap: wrap;
   background-color: white;
-  // max-width: 600px;
-  // row-gap: 20px;
   padding: 3.125rem;
-  // justify-content: space-between;
-  // column-gap: 30px;
   border-radius: 0.625rem;
   position: relative;
   margin-bottom: 60px;
-  // border: solid 1px lightgray;
   box-shadow: 1px 1px 44px 0px rgba(0, 0, 0, 0.08);
+
   &__submit {
-    padding: 10px 50px;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px;
+    padding: 10px 16px;
     border-radius: 10px;
-    border: none;
+    border: 2px solid #5a6f09; /* vert profond - même ton que le header */
     width: 100%;
-    background-color: #93ad19;
+
+    background-color: #5a6f09; /* couleur principale du header */
+    color: #ffffff;
     font-weight: 700;
-    color: white;
-    margin-top: 2rem;
-    // position: absolute;
-    // bottom: -20px;
-    // left: 40%;
     font-size: 1em;
+    margin-top: 2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      background-color: #93ad19; /* vert clair du hover du header */
+      border-color: #93ad19;
+    }
+
+    &:active {
+      background-color: #7c9615; /* légèrement plus foncé pour clic */
+      border-color: #7c9615;
+    }
+
+    &:focus-visible {
+      outline: 3px solid #ffbf47; /* focus jaune (bonne visibilité) */
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      background-color: #cfd8b1;
+      border-color: #cfd8b1;
+      color: #3a3a3a;
+      cursor: not-allowed;
+    }
   }
 }
 
@@ -34,22 +58,7 @@ form {
     background-color: white;
     border-radius: 5px;
     height: 32px;
-    border: none;
-    flex-basis: 100%;
     border: solid 1px lightgray;
+    flex-basis: 100%;
   }
 }
-// @media screen and (max-width: 800px) {
-//     form {
-//         flex-basis: 100%;
-//         column-gap: 0;
-//         padding: 30px 20px 60px 20px;
-//         .adressContainer {
-//             flex-basis: 100%;
-//             padding: 20px;
-//         }
-//         > .submitButton {
-//             left: 30%;
-//         }
-//     }
-// }
