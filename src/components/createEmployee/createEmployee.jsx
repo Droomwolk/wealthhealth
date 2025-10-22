@@ -305,7 +305,7 @@ function CreateEmployee() {
                 rules={{
                   required: "Zip code is required",
                   pattern: {
-                    value: /^(\d{5}|\d{9}|\d{5}-\d{4})$/,
+                    value: /^(\d{5}|\d{9}|\d{4})$/,
                     message: "Please enter your zip-code",
                   },
                 }}
@@ -318,7 +318,7 @@ function CreateEmployee() {
                     value={field.value ?? ""}
                     onChange={field.onChange}
                     onBlur={field.onBlur}
-                    validation="(^\\d{5}$)|(^\\d{9}$)|(^\\d{5}-\\d{4}$)"
+                    // validation="(^\\d{5}$)|(^\\d{9}$)|(^\\d{4}$)"
                     rhfError={fieldState.error?.message}
                   />
                 )}
