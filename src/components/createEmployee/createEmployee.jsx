@@ -123,11 +123,16 @@ function CreateEmployee() {
                   required: "First name is required",
                   minLength: { value: 3, message: "At least 3 letters" },
                   pattern: {
-                    value: /^[A-Za-zÀ-ÖØ-öø-ÿ'-]{3,}$/,
-                    message: "Only letters (no spaces)",
+                    value: /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{3,}$/,
+                    message:
+                      "Only letters, spaces, apostrophes and hyphens allowed",
                   },
                   validate: {
-                    noSpace: (v) => !/\s/.test(v || "") || "No spaces allowed",
+                    trim: (v) =>
+                      v.trim() === v || "No leading or trailing spaces allowed",
+                    doubleSpace: (v) =>
+                      !/\s{2,}/.test(v || "") ||
+                      "Only one space allowed between words",
                   },
                 }}
                 render={({ field, fieldState }) => (
@@ -136,13 +141,10 @@ function CreateEmployee() {
                     name="firstName"
                     type="text"
                     labelText="First Name"
-                    value={(field.value ?? "").trimStart()}
-                    onChange={(e) =>
-                      field.onChange(e.target.value.replace(/\s+/g, ""))
-                    }
+                    value={field.value ?? ""}
+                    onChange={(e) => field.onChange(e.target.value)}
                     onBlur={field.onBlur}
                     rhfError={fieldState.error?.message}
-                    onKeyDown={(e) => e.key === " " && e.preventDefault()}
                   />
                 )}
               />
@@ -153,11 +155,16 @@ function CreateEmployee() {
                   required: "Last name is required",
                   minLength: { value: 3, message: "At least 3 letters" },
                   pattern: {
-                    value: /^[A-Za-zÀ-ÖØ-öø-ÿ'-]{3,}$/,
-                    message: "Only letters (no spaces)",
+                    value: /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{3,}$/,
+                    message:
+                      "Only letters, spaces, apostrophes and hyphens allowed",
                   },
                   validate: {
-                    noSpace: (v) => !/\s/.test(v || "") || "No spaces allowed",
+                    trim: (v) =>
+                      v.trim() === v || "No leading or trailing spaces allowed",
+                    doubleSpace: (v) =>
+                      !/\s{2,}/.test(v || "") ||
+                      "Only one space allowed between words",
                   },
                 }}
                 render={({ field, fieldState }) => (
@@ -166,13 +173,10 @@ function CreateEmployee() {
                     name="lastName"
                     type="text"
                     labelText="Last Name"
-                    value={(field.value ?? "").trimStart()}
-                    onChange={(e) =>
-                      field.onChange(e.target.value.replace(/\s+/g, ""))
-                    }
+                    value={field.value ?? ""}
+                    onChange={(e) => field.onChange(e.target.value)}
                     onBlur={field.onBlur}
                     rhfError={fieldState.error?.message}
-                    onKeyDown={(e) => e.key === " " && e.preventDefault()}
                   />
                 )}
               />
