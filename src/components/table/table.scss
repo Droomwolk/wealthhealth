@@ -1,7 +1,16 @@
+.employeeList {
+  padding-inline: clamp(12px, 2vw, 24px);
+}
+.employeeList__title {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.employeeListContent {
+  display: flex;
+  justify-content: center;
+}
 .employeeTable-wrapper {
-    // display: flex;
-    // flex-wrap: wrap;
-    // flex-basis: 100%;
-    // padding: 20px;
-
+  width: 100%;
+  max-width: min(1280px, 96vw);
+  margin: 0 auto;
 }

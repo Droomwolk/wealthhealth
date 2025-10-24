@@ -1,6 +1,13 @@
-.employeeListContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.employeeList {
+  padding-inline: 1rem; /* aligne visuellement avec le header */
+}
+
+.employeeList__title {
+  text-align: center;
+  margin: 24px 0 16px;
+}
+
+.employeeList__table {
+  width: 100%;
+  min-width: 0; /* crucial pour laisser MUI utiliser toute la largeur */
 }

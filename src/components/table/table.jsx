@@ -26,13 +26,11 @@ function normalizeRow(r) {
   };
 }
 
-// formatteur robuste : accepte Date, ISO string, timestamp, "DD/MM/YYYY"
 function formatDateFR(value) {
   if (!value) return "";
   let d = value instanceof Date ? value : new Date(value);
-  if (typeof value === "string" && /^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
+  if (typeof value === "string" && /^\d{2}\/\d{2}\/\d{4}$/.test(value))
     return value;
-  }
   if (isNaN(d)) return String(value);
   return d.toLocaleDateString("fr-FR");
 }
@@ -43,29 +41,28 @@ export default function Table({ pagination }) {
 
   const columns = React.useMemo(
     () =>
-      baseColumns.map((col) =>
-        col.field === "dateOfBirth" || col.field === "startDate"
-          ? {
-              ...col,
-              valueFormatter: ({ value }) => formatDateFR(value),
-              sortComparator: (v1, v2) =>
-                new Date(v1).getTime() - new Date(v2).getTime(),
-            }
-          : col
-      ),
+      baseColumns.map((col) => {
+        const common = { flex: 1, minWidth: 140 };
+        if (col.field === "dateOfBirth" || col.field === "startDate") {
+          return {
+            ...col,
+            ...common,
+            valueFormatter: ({ value }) => formatDateFR(value),
+            sortComparator: (v1, v2) =>
+              new Date(v1).getTime() - new Date(v2).getTime(),
+          };
+        }
+        return { ...col, ...common };
+      }),
     []
   );
 
-  // Détection de la taille d’écran
-  const isXs = useMediaQuery("(max-width:480px)");
   const isSm = useMediaQuery("(max-width:768px)");
+  const isXs = useMediaQuery("(max-width:480px)");
 
-  // Colonnes visibles selon la taille d’écran
   const [columnVisibilityModel, setColumnVisibilityModel] = React.useState({});
-
   React.useEffect(() => {
     if (isSm) {
-      // Mobile / tablette : vue compacte
       setColumnVisibilityModel({
         firstName: true,
         lastName: true,
@@ -78,7 +75,6 @@ export default function Table({ pagination }) {
         zipCode: false,
       });
     } else {
-      // Desktop : tout visible
       setColumnVisibilityModel({
         firstName: true,
         lastName: true,
@@ -93,45 +89,61 @@ export default function Table({ pagination }) {
     }
   }, [isSm, isXs]);
 
+  // ---- Pagination universelle (v5 + v6) ----
+  const initialPageSize = Number(pagination) || 15;
+
+  // État v6 (paginationModel)
+  const [paginationModel, setPaginationModel] = React.useState({
+    page: 0,
+    pageSize: initialPageSize,
+  });
+
+  // État v5 (pageSize simple)
+  const [pageSizeV5, setPageSizeV5] = React.useState(initialPageSize);
+
+  const handlePaginationModelChange = (model) => {
+    // v6
+    if (model?.pageSize && model.pageSize !== paginationModel.pageSize) {
+      setPageSizeV5(model.pageSize); // garde V5 en phase
+    }
+    setPaginationModel(model);
+  };
+
+  const handlePageSizeChangeV5 = (newSize) => {
+    // v5
+    setPageSizeV5(newSize);
+    setPaginationModel((m) => ({ ...m, pageSize: newSize })); // garde v6 en phase
+  };
+
   return (
-    <Box
-      sx={{
-        width: { xs: "100%", sm: "95%", md: "80%" },
-        height: { xs: "auto", md: 525 },
-        minWidth: 0,
-      }}
-    >
+    <Box sx={{ width: "100%", minWidth: 0 }}>
       <DataGrid
         rows={rows}
         columns={columns}
         getRowId={(row) => row.id}
-        initialState={{
-          pagination: { pageSize: Number(pagination) || 10 },
-        }}
-        rowsPerPageOptions={[5, 10, 25, 50]}
+        // --- v6 ---
+        paginationModel={paginationModel}
+        onPaginationModelChange={handlePaginationModelChange}
+        pageSizeOptions={[5, 10, 15, 20, 25, 50]}
+        // --- v5 ---
+        pagination
+        pageSize={pageSizeV5}
+        onPageSizeChange={handlePageSizeChangeV5}
+        rowsPerPageOptions={[5, 10, 15, 20, 25, 50]}
+        // Affichage & layout
+        autoHeight
         columnVisibilityModel={columnVisibilityModel}
         onColumnVisibilityModelChange={(m) => setColumnVisibilityModel(m)}
-        autoHeight={isSm}
         density={isSm ? "compact" : "standard"}
         hideFooterSelectedRowCount
         disableRowSelectionOnClick
         sx={{
-          "& .MuiDataGrid-columnHeaders": {
-            fontSize: { xs: "0.9rem", sm: "1rem" },
-          },
-          "& .MuiDataGrid-cell": {
-            fontSize: { xs: "0.9rem", sm: "1rem" },
-            py: { xs: 0.5, sm: 1 },
-          },
-          // Forcer l’affichage du sélecteur “Rows per page” sur mobile
-          "& .MuiTablePagination-selectLabel, & .MuiTablePagination-input": {
-            display: "inline-flex !important",
-          },
-          "& .MuiTablePagination-toolbar": {
-            flexWrap: "wrap",
-            rowGap: 0.5,
-            justifyContent: "center",
-          },
+          width: "100%",
+          minHeight: 420, // évite 0px
+          "& .MuiDataGrid-main": { width: "100%" },
+          "& .MuiDataGrid-virtualScroller": { overflowX: "auto" },
+          // S'assure que le footer (pagination) est visible
+          "& .MuiDataGrid-footerContainer": { display: "flex" },
         }}
       />
     </Box>
